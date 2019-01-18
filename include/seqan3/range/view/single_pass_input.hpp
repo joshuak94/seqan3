@@ -37,8 +37,7 @@ class single_pass_input_iterator;
  * \ingroup view
  */
 template <std::ranges::View urng_t>
-class single_pass_input_view : public view_base,
-                               public ranges::view_interface<single_pass_input_view<urng_t>>
+class single_pass_input_view : public ranges::view_interface<single_pass_input_view<urng_t>>
 {
 private:
 
@@ -93,6 +92,7 @@ public:
 
     //!\brief Construction from InputRange type.
     template <std::ranges::InputRange _urng_t>
+        requires !std::ranges::View<std::remove_reference_t<_urng_t>>
     single_pass_input_view(_urng_t & _urng) :
         single_pass_input_view{_urng | view::all}
     {}
@@ -138,7 +138,8 @@ public:
  * \{
  */
 //!\brief Deduces the single_pass_input_view from the underlying range.
-template <typename _urng_t>
+template <std::ranges::InputRange _urng_t>
+    requires !std::ranges::View<_urng_t>
 single_pass_input_view(_urng_t &) ->
     single_pass_input_view<decltype(std::declval<_urng_t>() | view::all)>;
 //!\}
