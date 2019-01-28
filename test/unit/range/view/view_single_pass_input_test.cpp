@@ -91,10 +91,13 @@ TYPED_TEST(single_pass_input, view_construction)
     {  // from lvalue container
         TypeParam p{this->data};
         [[maybe_unused]] detail::single_pass_input_view v{p};
+        EXPECT_TRUE((std::is_same_v<decltype(v), detail::single_pass_input_view<std::remove_reference_t<decltype(p | view::all)>>>));
     }
 
     {  // from view
         [[maybe_unused]] detail::single_pass_input_view v{TypeParam{this->data} | view::persist};
+        EXPECT_TRUE((std::is_same_v<decltype(v),
+                    detail::single_pass_input_view<decltype(TypeParam{this->data} | view::persist)>>));
     }
 }
 
@@ -119,6 +122,12 @@ TYPED_TEST(single_pass_input, view_end)
     using sentinel_type = std::ranges::sentinel_t<decltype(view)>;
 
     EXPECT_TRUE((std::is_same_v<decltype(view.end()), sentinel_type>));
+}
+
+TYPED_TEST(single_pass_input, default_construction)
+{
+    detail::single_pass_input_view<std::add_lvalue_reference_t<TypeParam>> v{};
+    EXPECT_TRUE(seqan3::begin(v) == seqan3::end(v));
 }
 
 TYPED_TEST(single_pass_input, view_iterate)

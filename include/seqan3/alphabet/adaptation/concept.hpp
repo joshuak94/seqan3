@@ -44,8 +44,8 @@ namespace seqan3
  */
 //!\cond
 template <typename type>
-concept char_adaptation_concept = alphabet_concept<type> &&
-                                       detail::is_char_adaptation_v<std::remove_reference_t<type>>;
+SEQAN3_CONCEPT char_adaptation_concept = alphabet_concept<type> &&
+                                  detail::is_char_adaptation_v<type>;
 //!\endcond
 
 /*!\interface seqan3::uint_adaptation_concept <>
@@ -74,8 +74,8 @@ concept char_adaptation_concept = alphabet_concept<type> &&
  */
 //!\cond
 template <typename type>
-concept uint_adaptation_concept = alphabet_concept<type> &&
-                                       detail::is_uint_adaptation_v<std::remove_reference_t<type>>;
+SEQAN3_CONCEPT uint_adaptation_concept = alphabet_concept<type> &&
+                                  detail::is_uint_adaptation_v<type>;
 //!\endcond
 
 } // namespace seqan3

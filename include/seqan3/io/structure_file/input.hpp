@@ -26,6 +26,7 @@
 
 #include <seqan3/alphabet/adaptation/char.hpp>
 #include <seqan3/alphabet/aminoacid/all.hpp>
+#include <seqan3/alphabet/nucleotide/rna15.hpp>
 #include <seqan3/alphabet/nucleotide/rna5.hpp>
 #include <seqan3/alphabet/structure/all.hpp>
 #include <seqan3/core/metafunction/basic.hpp>
@@ -195,7 +196,7 @@ namespace seqan3
 //!\}
 //!\cond
 template<typename t>
-concept structure_file_input_traits_concept = requires(t v)
+SEQAN3_CONCEPT structure_file_input_traits_concept = requires(t v)
 {
     // TODO(joergi-w) The expensive concept checks are currently omitted. Check again when compiler has improved.
     // sequence

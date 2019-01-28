@@ -85,16 +85,16 @@ public:
     ~single_pass_input_view() = default;
 
     //!\brief Construction from the underlying view.
-    // template <std::ranges::View _urng_t>
-    explicit single_pass_input_view(urng_t _urng) :
-        urng{std::move(_urng)},
+    single_pass_input_view(urng_t _urng) :
+        urng{_urng},
         cached_urng_iter{seqan3::begin(urng)}
     {}
 
     //!\brief Construction from InputRange type.
     template <std::ranges::InputRange _urng_t>
-    explicit single_pass_input_view(_urng_t & _urng) :
-        single_pass_input_view{view::all(_urng)}
+        requires !std::ranges::View<std::remove_reference_t<_urng_t>>
+    single_pass_input_view(_urng_t & _urng) :
+        single_pass_input_view{_urng | view::all}
     {}
     //!\}
 
@@ -139,8 +139,9 @@ public:
  */
 //!\brief Deduces the single_pass_input_view from the underlying range.
 template <std::ranges::InputRange _urng_t>
+    requires !std::ranges::View<_urng_t>
 single_pass_input_view(_urng_t &) ->
-    single_pass_input_view<decltype(view::all(std::declval<_urng_t &>()))>;
+    single_pass_input_view<decltype(std::declval<_urng_t>() | view::all)>;
 //!\}
 } // seqan3::detail
 
@@ -246,7 +247,9 @@ public:
     //!\brief Compares iterator with sentinel.
     constexpr bool operator==(sentinel_type const & s) const noexcept
     {
-        return cached() == s;
+        if (view_ptr->view_state_ptr != nullptr)
+            return cached() == s;
+        return true;
     }
 
     //!\copydoc operator==
