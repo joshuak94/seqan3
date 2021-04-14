@@ -75,6 +75,7 @@ SEQAN3_CONCEPT sequence_file_input_format = requires (detail::sequence_file_inpu
 #else // ^^^ before seqan 3.1 / after seqan 3.1 vvv
                                                       sequence_file_input_options<dna5>             & options,
 #endif // SEQAN3_DEPRECATED_310
+                                                      std::streampos                                & position_buffer,
                                                       std::vector<dna5>                             & seq,
                                                       std::string                                   & id,
                                                       std::vector<phred42>                          & qual,
@@ -82,9 +83,11 @@ SEQAN3_CONCEPT sequence_file_input_format = requires (detail::sequence_file_inpu
 {
     t::file_extensions;
 
-    SEQAN3_RETURN_TYPE_CONSTRAINT(v.read_sequence_record(f, options, seq, id, qual), std::same_as, void);
-    SEQAN3_RETURN_TYPE_CONSTRAINT(v.read_sequence_record(f, options, seq_qual, id, seq_qual), std::same_as, void);
-    SEQAN3_RETURN_TYPE_CONSTRAINT(v.read_sequence_record(f, options, std::ignore, std::ignore, std::ignore),
+    SEQAN3_RETURN_TYPE_CONSTRAINT(v.read_sequence_record(f, options, position_buffer, seq, id, qual),
+                                  std::same_as, void);
+    SEQAN3_RETURN_TYPE_CONSTRAINT(v.read_sequence_record(f, options, position_buffer, seq_qual, id, seq_qual),
+                                  std::same_as, void);
+    SEQAN3_RETURN_TYPE_CONSTRAINT(v.read_sequence_record(f, options, std::ignore, std::ignore, std::ignore, std::ignore),
                                   std::same_as, void);
 };
 //!\endcond

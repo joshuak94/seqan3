@@ -106,11 +106,13 @@ protected:
 #else // ^^^ before seqan 3.1 / after seqan 3.1 vvv
     template <typename stream_type,     // constraints checked by file
               typename seq_legal_alph_type,
+              typename stream_pos_type,
               typename seq_type,        // other constraints checked inside function
               typename id_type,
               typename qual_type>
     void read_sequence_record(stream_type & stream,
                               sequence_file_input_options<seq_legal_alph_type> const & options,
+                              stream_pos_type & position_buffer,
                               seq_type    & sequence,
                               id_type     & id,
                               qual_type   & SEQAN3_DOXYGEN_ONLY(qualities))
@@ -124,6 +126,9 @@ protected:
                           std::cpp20::back_inserter(idbuffer));
         if (idbuffer != "ID")
             throw parse_error{"An entry has to start with the code word ID."};
+
+        // Store current position in buffer.
+        position_buffer = stream.tellg();
 
         if constexpr (!detail::decays_to_ignore_v<id_type>)
         {
