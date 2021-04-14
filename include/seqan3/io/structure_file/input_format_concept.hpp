@@ -70,6 +70,7 @@ namespace seqan3
 template <typename t>
 SEQAN3_CONCEPT structure_file_input_format = requires(detail::structure_file_input_format_exposer<t> & v,
                                                       std::ifstream & f,
+                                                      std::streampos & position_buffer,
                                                       structure_file_input_options<rna5, false> & options,
                                                       rna5_vector & seq,
                                                       std::string & id,
