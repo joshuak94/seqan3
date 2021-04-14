@@ -601,6 +601,8 @@ protected:
     record_type record_buffer;
     //!\brief A larger (compared to stl default) stream buffer to use when reading from a file.
     std::vector<char> stream_buffer{std::vector<char>(1'000'000)};
+    //!\brief Buffer for the previous record position.
+    std::streampos position_buffer{};
     //!\}
 
     /*!\name Stream / file access
@@ -653,6 +655,7 @@ protected:
             {
                 f.read_sequence_record(*secondary_stream,
                                        options,
+                                       position_buffer,
                                        detail::get_or_ignore<field::_seq_qual_deprecated>(record_buffer),
                                        detail::get_or_ignore<field::id>(record_buffer),
                                        detail::get_or_ignore<field::_seq_qual_deprecated>(record_buffer));
@@ -661,6 +664,7 @@ protected:
             {
                 f.read_sequence_record(*secondary_stream,
                                        options,
+                                       position_buffer,
                                        detail::get_or_ignore<field::seq>(record_buffer),
                                        detail::get_or_ignore<field::id>(record_buffer),
                                        detail::get_or_ignore<field::qual>(record_buffer));

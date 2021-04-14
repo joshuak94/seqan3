@@ -101,11 +101,13 @@ protected:
     //!\copydoc sequence_file_input_format::read_sequence_record
     template <typename stream_type,     // constraints checked by file
               typename seq_legal_alph_type, bool seq_qual_combined,
+              typename stream_pos_type,
               typename seq_type,        // other constraints checked inside function
               typename id_type,
               typename qual_type>
     void read_sequence_record(stream_type                                                               & stream,
                               sequence_file_input_options<seq_legal_alph_type, seq_qual_combined> const & options,
+                              stream_pos_type                                                         & position_buffer,
                               seq_type                                                                  & sequence,
                               id_type                                                                   & id,
                               qual_type                                                                 & qualities)
@@ -118,6 +120,7 @@ protected:
         size_t sequence_size_after = 0;
         if constexpr (!detail::decays_to_ignore_v<seq_type>)
             sequence_size_before = size(sequence);
+        position_buffer = stream.tellg();
 
         /* ID */
         if (*stream_it != '@') // [[unlikely]]
