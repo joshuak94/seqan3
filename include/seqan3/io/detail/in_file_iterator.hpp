@@ -154,7 +154,7 @@ public:
 
     /*!\name File position functionality
      * \brief Low level API. Enables seeking to and returning specific file positions from the iterator.
-     * {
+     * \{
      */
 
      //!\brief Returns the current position in the file via `std::streampos`.
@@ -176,7 +176,6 @@ public:
          host->read_next_record();
          return *this;
      }
-
      //!\}
 
 private:

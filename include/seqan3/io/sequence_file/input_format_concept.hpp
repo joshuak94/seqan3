@@ -98,21 +98,27 @@ SEQAN3_CONCEPT sequence_file_input_format = requires (detail::sequence_file_inpu
  * \{
  */
 
-/*!\fn void read_sequence_record(stream_type & stream, seqan3::sequence_file_input_options const & options, seq_type & sequence,
- *               id_type & id, qual_type & qualities)
+/*!\fn void read_sequence_record(stream_type & stream,
+                                 seqan3::sequence_file_input_options const & options,
+                                 stream_pos_type & position_buffer,
+                                 seq_type & sequence,
+                                 id_type & id,
+                                 qual_type & qualities)
  * \brief Read from the specified stream and back-insert into the given field buffers.
  * \tparam stream_type      Input stream, must satisfy seqan3::input_stream_over with `char`.
+ * \tparam stream_pos_type  Buffer for storing the current record's file position.
  * \tparam seq_type         Type of the seqan3::field::seq input; must satisfy std::ranges::output_range
  * over a seqan3::alphabet.
  * \tparam id_type          Type of the seqan3::field::id input; must satisfy std::ranges::output_range
  * over a seqan3::alphabet.
  * \tparam qual_type        Type of the seqan3::field::qual input; must satisfy std::ranges::output_range
  * over a seqan3::writable_quality_alphabet.
- * \param[in,out] stream    The input stream to read from.
- * \param[in]     options   File specific options passed to the format.
- * \param[out]    sequence  The buffer for seqan3::field::seq input, i.e. the "sequence".
- * \param[out]    id        The buffer for seqan3::field::id input, e.g. the header line in FastA.
- * \param[out]    qualities The buffer for seqan3::field::qual input.
+ * \param[in,out] stream             The input stream to read from.
+ * \param[in,out] position_buffer    The buffer to store the current record's file position.
+ * \param[in]     options            File specific options passed to the format.
+ * \param[out]    sequence           The buffer for seqan3::field::seq input, i.e. the "sequence".
+ * \param[out]    id                 The buffer for seqan3::field::id input, e.g. the header line in FastA.
+ * \param[out]    qualities          The buffer for seqan3::field::qual input.
  *
  * \details
  *

@@ -152,6 +152,7 @@ SEQAN3_CONCEPT sam_file_input_format =
  *                                sam_file_input_options<seq_legal_alph_type> const & options,
  *                                ref_seqs_type & ref_seqs,
  *                                header_type & header,
+ *                                stream_pos_type & position_buffer,
  *                                seq_type & seq,
  *                                qual_type & qual,
  *                                id_type & id,
@@ -169,6 +170,7 @@ SEQAN3_CONCEPT sam_file_input_format =
  *                                bit_score_type & bit_score)
  * \brief Read from the specified stream and back-insert into the given field buffers.
  * \tparam stream_type        The input stream type; Must be derived from std::ostream.
+ * \tparam stream_pos_type    Type of the position buffer, aka, the std::streampos of the current record.
  * \tparam ref_seqs_type      e.g. std::deque<ref_sequence_type> or decltype(std::ignore).
  * \tparam seq_type           Type of the seqan3::field::seq input (see seqan3::sam_file_input_traits).
  * \tparam qual_type          Type of the seqan3::field::qual input (see seqan3::sam_file_input_traits).
@@ -186,25 +188,26 @@ SEQAN3_CONCEPT sam_file_input_format =
  * \tparam e_value_type       Type of the seqan3::field::evalue input (see seqan3::sam_file_input_traits).
  * \tparam bit_score_type     Type of the seqan3::field::bit_score input (see seqan3::sam_file_input_traits).
  *
- * \param[in,out] stream      The input stream to read from.
- * \param[in]     options     File specific options passed to the format.
- * \param[out]    ref_seqs    The reference sequences to the corresponding alignments.
- * \param[out]    header      A pointer to the seqan3::sam_file_header object.
- * \param[out]    seq         The buffer for seqan3::field::seq input.
- * \param[out]    qual        The buffer for seqan3::field::qual input.
- * \param[out]    id          The buffer for seqan3::field::id input.
- * \param[out]    offset      The buffer for seqan3::field::offset input.
- * \param[out]    ref_seq     The buffer for seqan3::field::ref_seq input.
- * \param[out]    ref_id      The buffer for seqan3::field::ref_id input.
- * \param[out]    ref_offset  The buffer for seqan3::field::ref_offset input.
- * \param[out]    align       The buffer for seqan3::field::alignment input.
- * \param[out]    cigar_vector The buffer for seqan3::field::cigar input.
- * \param[out]    flag        The buffer for seqan3::field::flag input.
- * \param[out]    mapq        The buffer for seqan3::field::mapq input.
- * \param[out]    mate        The buffer for seqan3::field::mate input.
- * \param[out]    tag_dict    The buffer for seqan3::field::tags input.
- * \param[out]    e_value     The buffer for seqan3::field::evalue input.
- * \param[out]    bit_score   The buffer for seqan3::field::bit_score input.
+ * \param[in,out] stream             The input stream to read from.
+ * \param[in,out] position_buffer    The buffer to store the current record's position.
+ * \param[in]     options            File specific options passed to the format.
+ * \param[out]    ref_seqs           The reference sequences to the corresponding alignments.
+ * \param[out]    header             A pointer to the seqan3::sam_file_header object.
+ * \param[out]    seq                The buffer for seqan3::field::seq input.
+ * \param[out]    qual               The buffer for seqan3::field::qual input.
+ * \param[out]    id                 The buffer for seqan3::field::id input.
+ * \param[out]    offset             The buffer for seqan3::field::offset input.
+ * \param[out]    ref_seq            The buffer for seqan3::field::ref_seq input.
+ * \param[out]    ref_id             The buffer for seqan3::field::ref_id input.
+ * \param[out]    ref_offset         The buffer for seqan3::field::ref_offset input.
+ * \param[out]    align              The buffer for seqan3::field::alignment input.
+ * \param[out]    cigar_vector       The buffer for seqan3::field::cigar input.
+ * \param[out]    flag               The buffer for seqan3::field::flag input.
+ * \param[out]    mapq               The buffer for seqan3::field::mapq input.
+ * \param[out]    mate               The buffer for seqan3::field::mate input.
+ * \param[out]    tag_dict           The buffer for seqan3::field::tags input.
+ * \param[out]    e_value            The buffer for seqan3::field::evalue input.
+ * \param[out]    bit_score          The buffer for seqan3::field::bit_score input.
  *
  * \details
  *
