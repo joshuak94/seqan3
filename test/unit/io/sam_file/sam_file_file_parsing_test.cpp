@@ -9,10 +9,23 @@
 
 #include <gtest/gtest.h>
 
-#include <seqan3/io/sam_file/format_bam.hpp>
-#include <seqan3/io/sam_file/format_sam.hpp>
+#include <seqan3/alphabet/detail/debug_stream_alphabet.hpp>
+#include <seqan3/alphabet/quality/phred42.hpp>
+#include <seqan3/core/debug_stream/byte.hpp>
+#include <seqan3/core/debug_stream/optional.hpp>
+#include <seqan3/core/debug_stream/tuple.hpp>
+#include <seqan3/core/debug_stream/variant.hpp>
+#include <seqan3/io/sam_file/input.hpp>
+#include <seqan3/io/sam_file/input_format_concept.hpp>
+#include <seqan3/io/sam_file/output.hpp>
+#include <seqan3/io/sam_file/output_format_concept.hpp>
+#include <seqan3/test/expect_range_eq.hpp>
+#include <seqan3/test/pretty_printing.hpp>
 
-#include "sam_file_format_test_template.hpp"
+using seqan3::operator""_cigar_operation;
+using seqan3::operator""_dna5;
+using seqan3::operator""_phred42;
+using seqan3::operator""_tag;
 
 struct verbose_file_data : public ::testing::Test
 {
