@@ -153,21 +153,6 @@ TEST_F(verbose_file_data, read_in_bam)
     auto rec = fin.begin();
     for (; rec != fin.end(); ++rec)
     {
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        EXPECT_EQ(seqan3::get<seqan3::field::seq>(*rec), this->seqs[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::id>(*rec), this->ids[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::qual>(*rec), this->quals[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::offset>(*rec), this->offsets[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::ref_id>(*rec), 0);
-        EXPECT_EQ(*seqan3::get<seqan3::field::ref_offset>(*rec), this->ref_offsets[i]);
-        // EXPECT_RANGE_EQ(std::get<0>(seqan3::get<seqan3::field::alignment>(*rec)), std::get<0>(this->alignments[i]));
-        EXPECT_RANGE_EQ(std::get<1>(seqan3::get<seqan3::field::alignment>(*rec)), std::get<1>(this->alignments[i]));
-        EXPECT_EQ(seqan3::get<seqan3::field::flag>(*rec), this->flags[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::mapq>(*rec), this->mapqs[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::mate>(*rec), this->mates[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::tags>(*rec), this->tag_dicts[i]);
-#pragma GCC diagnostic pop
 
         EXPECT_EQ((*rec).sequence(), this->seqs[i]);
         EXPECT_EQ((*rec).id(), this->ids[i]);
@@ -192,21 +177,6 @@ TEST_F(verbose_file_data, read_in_bam)
     for (; i > 0; --i)
     {
         rec.seek_to(this->file_positions[i]);
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        EXPECT_EQ(seqan3::get<seqan3::field::seq>(*rec), this->seqs[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::id>(*rec), this->ids[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::qual>(*rec), this->quals[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::offset>(*rec), this->offsets[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::ref_id>(*rec), 0);
-        EXPECT_EQ(*seqan3::get<seqan3::field::ref_offset>(*rec), this->ref_offsets[i]);
-        // EXPECT_RANGE_EQ(std::get<0>(seqan3::get<seqan3::field::alignment>(*rec)), std::get<0>(this->alignments[i]));
-        EXPECT_RANGE_EQ(std::get<1>(seqan3::get<seqan3::field::alignment>(*rec)), std::get<1>(this->alignments[i]));
-        EXPECT_EQ(seqan3::get<seqan3::field::flag>(*rec), this->flags[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::mapq>(*rec), this->mapqs[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::mate>(*rec), this->mates[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::tags>(*rec), this->tag_dicts[i]);
-#pragma GCC diagnostic pop
 
         EXPECT_EQ((*rec).sequence(), this->seqs[i]);
         EXPECT_EQ((*rec).id(), this->ids[i]);
@@ -237,21 +207,6 @@ TEST_F(verbose_file_data, read_in_sam)
     auto rec = fin.begin();
     for (; rec != fin.end(); ++rec)
     {
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        EXPECT_EQ(seqan3::get<seqan3::field::seq>(*rec), this->seqs[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::id>(*rec), this->ids[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::qual>(*rec), this->quals[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::offset>(*rec), this->offsets[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::ref_id>(*rec), 0);
-        EXPECT_EQ(*seqan3::get<seqan3::field::ref_offset>(*rec), this->ref_offsets[i]);
-        // EXPECT_RANGE_EQ(std::get<0>(seqan3::get<seqan3::field::alignment>(*rec)), std::get<0>(this->alignments[i]));
-        EXPECT_RANGE_EQ(std::get<1>(seqan3::get<seqan3::field::alignment>(*rec)), std::get<1>(this->alignments[i]));
-        EXPECT_EQ(seqan3::get<seqan3::field::flag>(*rec), this->flags[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::mapq>(*rec), this->mapqs[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::mate>(*rec), this->mates[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::tags>(*rec), this->tag_dicts[i]);
-#pragma GCC diagnostic pop
 
         EXPECT_EQ((*rec).sequence(), this->seqs[i]);
         EXPECT_EQ((*rec).id(), this->ids[i]);
@@ -276,21 +231,6 @@ TEST_F(verbose_file_data, read_in_sam)
     for (; i > 0; --i)
     {
         rec.seek_to(this->file_positions[i]);
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        EXPECT_EQ(seqan3::get<seqan3::field::seq>(*rec), this->seqs[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::id>(*rec), this->ids[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::qual>(*rec), this->quals[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::offset>(*rec), this->offsets[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::ref_id>(*rec), 0);
-        EXPECT_EQ(*seqan3::get<seqan3::field::ref_offset>(*rec), this->ref_offsets[i]);
-        // EXPECT_RANGE_EQ(std::get<0>(seqan3::get<seqan3::field::alignment>(*rec)), std::get<0>(this->alignments[i]));
-        EXPECT_RANGE_EQ(std::get<1>(seqan3::get<seqan3::field::alignment>(*rec)), std::get<1>(this->alignments[i]));
-        EXPECT_EQ(seqan3::get<seqan3::field::flag>(*rec), this->flags[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::mapq>(*rec), this->mapqs[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::mate>(*rec), this->mates[i]);
-        EXPECT_EQ(seqan3::get<seqan3::field::tags>(*rec), this->tag_dicts[i]);
-#pragma GCC diagnostic pop
 
         EXPECT_EQ((*rec).sequence(), this->seqs[i]);
         EXPECT_EQ((*rec).id(), this->ids[i]);
