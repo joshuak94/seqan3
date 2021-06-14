@@ -137,11 +137,13 @@ protected:
 #ifdef SEQAN3_DEPRECATED_310
     template <typename stream_type,     // constraints checked by file
               typename seq_legal_alph_type, bool seq_qual_combined,
+              typename stream_pos_type,
               typename seq_type,        // other constraints checked inside function
               typename id_type,
               typename qual_type>
     void read_sequence_record(stream_type & stream,
                               sequence_file_input_options<seq_legal_alph_type, seq_qual_combined> const & options,
+                              stream_pos_type & position_buffer,
                               seq_type & sequence,
                               id_type & id,
                               qual_type & qualities);
@@ -296,11 +298,13 @@ private:
 #ifdef SEQAN3_DEPRECATED_310
 template <typename stream_type,     // constraints checked by file
           typename seq_legal_alph_type, bool seq_qual_combined,
+          typename stream_pos_type,
           typename seq_type,        // other constraints checked inside function
           typename id_type,
           typename qual_type>
 inline void format_sam::read_sequence_record(stream_type & stream,
                                              sequence_file_input_options<seq_legal_alph_type, seq_qual_combined> const & options,
+                                             stream_pos_type & position_buffer,
                                              seq_type & sequence,
                                              id_type & id,
                                              qual_type & qualities)
@@ -325,8 +329,8 @@ inline void format_sam::read_sequence_record(stream_type & stream,
     if constexpr (seq_qual_combined)
     {
         tmp_qual.clear();
-        read_alignment_record(stream, align_options, std::ignore, default_header, sequence, tmp_qual, id,
-                              std::ignore, std::ignore, std::ignore, std::ignore, std::ignore, std::ignore,
+        read_alignment_record(stream, align_options, std::ignore, default_header, position_buffer, sequence, tmp_qual,
+                              id, std::ignore, std::ignore, std::ignore, std::ignore, std::ignore, std::ignore,
                               std::ignore, std::ignore, std::ignore, std::ignore, std::ignore, std::ignore);
 
         for (auto sit = tmp_qual.begin(), dit = std::ranges::begin(sequence); sit != tmp_qual.end(); ++sit, ++dit)

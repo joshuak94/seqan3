@@ -744,6 +744,7 @@ private:
             {
                 _format.read_sequence_record(instream,
                                              options,
+                                             position_buffer,
                                              detail::get_or_ignore<field::_seq_qual_deprecated>(record_buffer),
                                              detail::get_or_ignore<field::id>(record_buffer),
                                              detail::get_or_ignore<field::_seq_qual_deprecated>(record_buffer));
